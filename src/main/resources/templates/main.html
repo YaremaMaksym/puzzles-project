@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Puzzle Project</title>
+    <link rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>Puzzle Project</h1>
+<h2>Upload your image: </h2>
+<form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" id="imageInput" name="image" accept="image/*" required>
+
+    <label for="numPiecesInColumn">Number of pieces in column:</label>
+    <input type="number" id="numPiecesInColumn" name="numPiecesInColumn" value="4">
+
+    <label for="numPiecesInRow">Number of pieces in row:</label>
+    <input type="number" id="numPiecesInRow" name="numPiecesInRow" value="4">
+
+    <input type="submit" value="Upload">
+</form>
+
+<div id="successMessage" style="display: none;">Image uploaded successfully! Now you can download puzzle or/and start to assemble them</div>
+
+
+<div id="downloadAndStartButtons" style="display: none;">
+    <h2>Download puzzle pieces:</h2>
+    <a  th:href="@{/api/v1/puzzle/download}" download>Download Puzzle Pieces</a>
+
+    <h2>Start puzzle:</h2>
+    <button onclick="startPuzzle()">Start Puzzle</button>
+</div>
+
+<script src="/js/main.js"></script>
+</body>
+</html>
