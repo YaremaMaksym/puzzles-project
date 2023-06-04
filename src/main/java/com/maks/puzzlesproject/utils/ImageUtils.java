@@ -13,7 +13,7 @@ import java.io.IOException;
 @Component
 public class ImageUtils {
 
-    public static byte[] getImageData(ImagePlus imagePlus) throws IOException {
+    public static byte[] getBytesOfImage(ImagePlus imagePlus) throws IOException {
         ImageProcessor ip = imagePlus.getProcessor();
 
         BufferedImage bufferedImage = ip.getBufferedImage();

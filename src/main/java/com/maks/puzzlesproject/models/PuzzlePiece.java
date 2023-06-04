@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PuzzlePiece {
     private String name;
-    private byte[] imageData;
+    private byte[] imageByteData;
 }

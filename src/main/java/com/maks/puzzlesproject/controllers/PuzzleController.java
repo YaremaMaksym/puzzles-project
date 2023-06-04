@@ -34,7 +34,7 @@ public class PuzzleController {
 
             session.setAttribute("puzzlePieces", puzzlePieces);
 
-            String base64Image = Base64.getEncoder().encodeToString(puzzlePieces.get(0).getImageData());
+            String base64Image = Base64.getEncoder().encodeToString(puzzlePieces.get(0).getImageByteData());
 
             // Create the data URI for the image
             String dataUri = "data:image/jpeg;base64," + base64Image;

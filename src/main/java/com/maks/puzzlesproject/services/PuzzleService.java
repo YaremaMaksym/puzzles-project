@@ -50,7 +50,7 @@ public class PuzzleService {
                 ImageProcessor impCrop = imp.crop();
                 ImagePlus puzzleImage = new ImagePlus("puzzle", impCrop);
 
-                byte[] puzzlePieceData = ImageUtils.getImageData(puzzleImage);
+                byte[] puzzlePieceByteImage = ImageUtils.getBytesOfImage(puzzleImage);
 
                 String randomFileName = GenerateRandomUtil.generateRandomName(8);
 
@@ -62,7 +62,7 @@ public class PuzzleService {
                     randomFileName = GenerateRandomUtil.generateRandomName(8);
                 }
 
-                PuzzlePiece puzzlePiece = new PuzzlePiece(randomFileName, puzzlePieceData);
+                PuzzlePiece puzzlePiece = new PuzzlePiece(randomFileName, puzzlePieceByteImage);
 
                 puzzlePieces.add(puzzlePiece);
             }
@@ -80,7 +80,7 @@ public class PuzzleService {
                 ZipEntry entry = new ZipEntry(piece.getName() + ".jpg");
                 zipOut.putNextEntry(entry);
 
-                zipOut.write(piece.getImageData());
+                zipOut.write(piece.getImageByteData());
 
                 zipOut.closeEntry();
             }
