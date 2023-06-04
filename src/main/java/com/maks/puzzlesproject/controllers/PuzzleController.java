@@ -1,5 +1,6 @@
 package com.maks.puzzlesproject.controllers;
 
+import com.maks.puzzlesproject.models.PuzzleInfo;
 import com.maks.puzzlesproject.models.PuzzlePiece;
 import com.maks.puzzlesproject.services.PuzzleService;
 import jakarta.servlet.http.HttpSession;
@@ -32,7 +33,9 @@ public class PuzzleController {
 
             List<PuzzlePiece> puzzlePieces = puzzleService.splitImageIntoPieces(imageData, numPiecesInColumn, numPiecesInRow);
 
-            session.setAttribute("puzzlePieces", puzzlePieces);
+            PuzzleInfo puzzleInfo = new PuzzleInfo(Base64.getEncoder().encodeToString(imageData), puzzlePieces);
+
+            session.setAttribute("puzzleInfo", puzzleInfo);
 
             return ResponseEntity.ok("Success");
 
@@ -47,7 +50,9 @@ public class PuzzleController {
     @GetMapping("/download")
     public ResponseEntity<byte[]> downloadPuzzlePieces(HttpSession session){
 
-        List<PuzzlePiece> puzzlePieces = (List<PuzzlePiece>) session.getAttribute("puzzlePieces");
+        PuzzleInfo puzzleInfo = (PuzzleInfo) session.getAttribute("puzzleInfo");
+
+        List<PuzzlePiece> puzzlePieces = puzzleInfo.getPuzzlePieces();
 
         try {
             byte[] puzzleArchive = puzzleService.createPuzzleArchive(puzzlePieces);
