@@ -46,7 +46,6 @@ public class PuzzleController {
         }
     }
 
-    @SuppressWarnings("unchecked")
     @GetMapping("/download")
     public ResponseEntity<byte[]> downloadPuzzlePieces(HttpSession session){
 
