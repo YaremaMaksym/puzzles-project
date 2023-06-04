@@ -67,6 +67,15 @@ public class PuzzleController {
         }
     }
 
+    @GetMapping("/desk")
+    public String getDeskPage(){
+        return "desk";
+    }
 
+    @GetMapping("/getPuzzleInfo")
+    @ResponseBody
+    public PuzzleInfo getPuzzlePieces(HttpSession session) {
+        return (PuzzleInfo) session.getAttribute("puzzleInfo");
+    }
 }
 
