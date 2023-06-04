@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -52,7 +53,7 @@ public class PuzzleService {
                     randomFileName = GenerateRandomUtil.generateRandomName(8);
                 }
 
-                PuzzlePiece puzzlePiece = new PuzzlePiece(randomFileName, puzzlePieceByteImage);
+                PuzzlePiece puzzlePiece = new PuzzlePiece(randomFileName, Base64.getEncoder().encodeToString(puzzlePieceByteImage));
 
                 puzzlePieces.add(puzzlePiece);
             }
@@ -70,7 +71,7 @@ public class PuzzleService {
                 ZipEntry entry = new ZipEntry(piece.getName() + ".jpg");
                 zipOut.putNextEntry(entry);
 
-                zipOut.write(piece.getImageByteData());
+                zipOut.write(Base64.getDecoder().decode(piece.getImageBase64Data()));
 
                 zipOut.closeEntry();
             }
