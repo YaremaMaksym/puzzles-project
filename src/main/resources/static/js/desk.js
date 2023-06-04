@@ -36,6 +36,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
                     pieceElement.appendChild(pieceImage);
                     puzzleContainer.appendChild(pieceElement);
+
+                    const puzzlePieceDraggie = new Draggabilly(pieceElement);
                 });
             });
         })
