@@ -17,16 +17,6 @@ import java.util.zip.ZipOutputStream;
 @Service
 public class PuzzleService {
 
-    private String dataUri;
-
-    public void setDataUri(String dataUri) {
-        this.dataUri = dataUri;
-    }
-
-    public String getDataUri() {
-        return dataUri;
-    }
-
     public List<PuzzlePiece> splitImageIntoPieces(byte[] imageData, Integer numPiecesInColumn, Integer numPiecesInRow) throws IOException {
         List<PuzzlePiece> puzzlePieces = new ArrayList<>();
 

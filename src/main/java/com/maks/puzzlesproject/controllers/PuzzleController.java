@@ -34,14 +34,6 @@ public class PuzzleController {
 
             session.setAttribute("puzzlePieces", puzzlePieces);
 
-            String base64Image = Base64.getEncoder().encodeToString(puzzlePieces.get(0).getImageByteData());
-
-            // Create the data URI for the image
-            String dataUri = "data:image/jpeg;base64," + base64Image;
-
-            // Add the Base64 image data to the session
-            puzzleService.setDataUri(dataUri);
-
             return ResponseEntity.ok("Success");
 
         } catch (IOException e) {
@@ -71,16 +63,6 @@ public class PuzzleController {
         }
     }
 
-    @GetMapping("/desk")
-    public String getDeskPage(HttpSession session){
-        session.getAttribute("puzzlePieces");
-
-        String dataUri = puzzleService.getDataUri();
-
-        session.setAttribute("dataUri", dataUri);
-
-        return "desk";
-    }
 
 }
 
