@@ -1,21 +1,38 @@
 #puzzle-desk {
     position: relative;
-    background-color: #f0f0f0;
+    background-color: #f3f3f3;
 }
 
 #puzzle-container {
     position: relative;
+    background-color: #fff4e8;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 2px solid black;
+    outline: 2px solid black;
 }
+
+.grid-cell {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    outline: 0.5px solid rgba(0, 0, 0, 0.25);
+}
+
+.grid-cell.highlight {
+    background-color: rgba(0, 255, 0, 0.5); /* Change this to any color you want */
+}
+
 
 .puzzle-piece {
     position: absolute;
-    border: 1px solid black;
+    outline: 1px solid black;
+}
+
+.puzzle-piece img {
+    display: block;
 }
 
 .puzzle-piece.active {
-    border: 4px solid red;
+    outline: 4px solid red;
 }

@@ -33,7 +33,7 @@ public class PuzzleController {
 
             List<PuzzlePiece> puzzlePieces = puzzleService.splitImageIntoPieces(imageData, numPiecesInColumn, numPiecesInRow);
 
-            PuzzleInfo puzzleInfo = new PuzzleInfo(Base64.getEncoder().encodeToString(imageData), puzzlePieces);
+            PuzzleInfo puzzleInfo = new PuzzleInfo(Base64.getEncoder().encodeToString(imageData), numPiecesInRow, numPiecesInColumn, puzzlePieces);
 
             session.setAttribute("puzzleInfo", puzzleInfo);
 

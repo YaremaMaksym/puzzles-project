@@ -23,6 +23,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 puzzleDesk.style.width = puzzleContainerWidth * 3 + 'px';
                 puzzleDesk.style.height = puzzleContainerHeight + 'px';
 
+                addGrid(puzzleInfo);
 
                 puzzleInfo.puzzlePieces.forEach(puzzlePiece => {
                     const pieceElement = document.createElement('div');
@@ -58,6 +59,9 @@ function addDragHandlers(element) {
         const puzzlePiece = event.target.closest('.puzzle-piece');
         activePuzzlePiece = puzzlePiece;
 
+        // Видаляємо атрибут 'data-cell-id', коли починаємо пересувати пазл
+        activePuzzlePiece.removeAttribute('data-cell-id');
+
         const rect = puzzlePiece.getBoundingClientRect();
 
         if (rotationAngle === 90 || rotationAngle === 270) {
@@ -79,6 +83,7 @@ function addDragHandlers(element) {
 
         if (puzzlePiece === activePuzzlePiece) {
             puzzlePiece.classList.remove('active');
+            attachToGrid(puzzlePiece, rotationAngle); // Прикріплюємо пазл до сітки
             activePuzzlePiece = null;
         }
     });
@@ -94,7 +99,6 @@ function addDragHandlers(element) {
 
             const puzzleDesk = document.getElementById('puzzle-desk');
             const deskRect = puzzleContainer.getBoundingClientRect();
-
 
             const newX = event.clientX - containerRect.left - offsetX;
             const newY = event.clientY - containerRect.top - offsetY;
@@ -123,4 +127,65 @@ function addDragHandlers(element) {
             }
         }
     });
+}
+
+function addGrid(puzzleInfo) {
+    const gridSize = Math.sqrt(puzzleInfo.puzzlePieces.length);
+
+    const puzzleContainer = document.getElementById('puzzle-container');
+
+    puzzleContainer.style.display = 'grid';
+    puzzleContainer.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
+    puzzleContainer.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+
+    for (let i = 0; i < puzzleInfo.puzzlePieces.length; i++) {
+        const gridCell = document.createElement('div');
+        gridCell.id = `grid-cell-${i}`;
+        gridCell.className = 'grid-cell';
+        puzzleContainer.appendChild(gridCell);
+    }
+}
+
+function attachToGrid(element, rotationAngle) {
+    const puzzleContainer = document.getElementById('puzzle-container');
+    const gridCells = puzzleContainer.getElementsByClassName('grid-cell');
+
+    let minDistance = Infinity;
+    let closestCell = null;
+
+    const pieceRect = element.getBoundingClientRect();
+    const pieceCenterX = pieceRect.left + pieceRect.width / 2;
+    const pieceCenterY = pieceRect.top + pieceRect.height / 2;
+
+    for (const cell of gridCells) {
+        const cellRect = cell.getBoundingClientRect();
+        const cellCenterX = cellRect.left + cellRect.width / 2;
+        const cellCenterY = cellRect.top + cellRect.height / 2;
+
+        const dx = cellCenterX - pieceCenterX;
+        const dy = cellCenterY - pieceCenterY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < minDistance) {
+            minDistance = distance;
+            closestCell = cell;
+        }
+    }
+
+    if (closestCell && minDistance < 300) { // Adjust this value to change the snapping threshold
+        // Перевіряємо, чи вже існує пазл, який прикріплений до клітинки
+        const existingPiece = Array.from(puzzleContainer.getElementsByClassName('puzzle-piece')).find(piece => piece.dataset.cellId === closestCell.id);
+        if (existingPiece) {
+            return; // Якщо такий пазл існує, припиняємо виконання функції
+        }
+
+        const containerRect = puzzleContainer.getBoundingClientRect();
+        const cellRect = closestCell.getBoundingClientRect();
+
+        const newX = cellRect.left - containerRect.left;
+        const newY = cellRect.top - containerRect.top;
+
+        element.style.transform = `translate(${newX}px, ${newY}px) rotate(${rotationAngle}deg)`;
+        element.dataset.cellId = closestCell.id; // Запам'ятовуємо ідентифікатор клітинки, до якої прикріплений пазл
+    }
 }
