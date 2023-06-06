@@ -50,7 +50,7 @@ function addDragHandlers(element) {
     let isDragging = false;
     let offsetX = 0;
     let offsetY = 0;
-    let rotationAngle = 0; // Додаємо змінну для відстеження поточного кута обертання
+    let rotationAngle = 0;
 
     element.addEventListener('mousedown', (event) => {
         event.preventDefault();
@@ -116,10 +116,9 @@ function addDragHandlers(element) {
     });
 
     window.addEventListener('keydown', (event) => {
-        // Обертаємо активну частину пазлу, коли натиснута клавіша 'R'
         if (event.key === 'r' || event.key === 'R') {
             if (activePuzzlePiece && isDragging) {
-                rotationAngle += 90; // Обертання на 90 градусів
+                rotationAngle += 90;
                 if (rotationAngle >= 360) {
                     rotationAngle = 0;
                 }
@@ -173,11 +172,12 @@ function attachToGrid(element, rotationAngle) {
         }
     }
 
-    if (closestCell && minDistance < 300) { // Adjust this value to change the snapping threshold
-        // Перевіряємо, чи вже існує пазл, який прикріплений до клітинки
+    if (closestCell && minDistance < 300) {
+
+        // Check if puzzle-cell already occupied
         const existingPiece = Array.from(puzzleContainer.getElementsByClassName('puzzle-piece')).find(piece => piece.dataset.cellId === closestCell.id);
         if (existingPiece) {
-            return; // Якщо такий пазл існує, припиняємо виконання функції
+            return;
         }
 
         const containerRect = puzzleContainer.getBoundingClientRect();
@@ -187,6 +187,6 @@ function attachToGrid(element, rotationAngle) {
         const newY = cellRect.top - containerRect.top;
 
         element.style.transform = `translate(${newX}px, ${newY}px) rotate(${rotationAngle}deg)`;
-        element.dataset.cellId = closestCell.id; // Запам'ятовуємо ідентифікатор клітинки, до якої прикріплений пазл
+        element.dataset.cellId = closestCell.id;
     }
 }
