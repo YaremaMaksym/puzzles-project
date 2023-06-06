@@ -33,8 +33,8 @@ public class PuzzleService {
 
                 int puzzleWidth = imageWidth / numPiecesInRow;  // Width of the puzzle
                 int puzzleHeight = imageHeight / numPiecesInColumn;  // Height of the puzzle
-                int x = j * puzzleWidth;  // Top-left x-coordinate of the puzzle
-                int y = i * puzzleHeight;  // Top-left y-coordinate of the puzzle
+                int x = i * puzzleWidth;  // Top-left x-coordinate of the puzzle
+                int y = j * puzzleHeight;  // Top-left y-coordinate of the puzzle
 
                 imp.setRoi(x, y, puzzleWidth, puzzleHeight);
 

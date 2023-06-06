@@ -130,13 +130,14 @@ function addDragHandlers(element) {
 }
 
 function addGrid(puzzleInfo) {
-    const gridSize = Math.sqrt(puzzleInfo.puzzlePieces.length);
+    const numInRow = puzzleInfo.numPiecesInRow;
+    const numInColumn = puzzleInfo.numPiecesInColumn;
 
     const puzzleContainer = document.getElementById('puzzle-container');
 
     puzzleContainer.style.display = 'grid';
-    puzzleContainer.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
-    puzzleContainer.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+    puzzleContainer.style.gridTemplateRows = `repeat(${numInColumn}, 1fr)`;
+    puzzleContainer.style.gridTemplateColumns = `repeat(${numInRow}, 1fr)`;
 
     for (let i = 0; i < puzzleInfo.puzzlePieces.length; i++) {
         const gridCell = document.createElement('div');
