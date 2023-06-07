@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -43,15 +44,7 @@ public class PuzzleService {
 
                 byte[] puzzlePieceByteImage = ImageUtils.getBytesOfImage(puzzleImage);
 
-                String randomFileName = GenerateRandomUtil.generateRandomName(8);
-
-                //creates new name if current was taken in puzzlePieces list
-                while (puzzlePieces.stream()
-                        .map(PuzzlePiece::getName)
-                        .toList()
-                        .contains(randomFileName)){
-                    randomFileName = GenerateRandomUtil.generateRandomName(8);
-                }
+                String randomFileName = UUID.randomUUID().toString();
 
                 PuzzlePiece puzzlePiece = new PuzzlePiece(randomFileName, Base64.getEncoder().encodeToString(puzzlePieceByteImage));
 
