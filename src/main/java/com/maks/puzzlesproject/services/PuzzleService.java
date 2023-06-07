@@ -1,10 +1,11 @@
 package com.maks.puzzlesproject.services;
 
 import com.maks.puzzlesproject.models.PuzzlePiece;
-import com.maks.puzzlesproject.utils.GenerateRandomUtil;
+import com.maks.puzzlesproject.repository.PuzzlePieceRepository;
 import com.maks.puzzlesproject.utils.ImageUtils;
 import ij.ImagePlus;
 import ij.process.ImageProcessor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
@@ -17,12 +18,15 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 @Service
+@AllArgsConstructor
 public class PuzzleService {
+
+    private final PuzzlePieceRepository puzzlePieceRepository;
 
     public List<PuzzlePiece> splitImageIntoPieces(byte[] imageData, Integer numPiecesInColumn, Integer numPiecesInRow) throws IOException {
         List<PuzzlePiece> puzzlePieces = new ArrayList<>();
 
-        ImagePlus image = ImageUtils.getImagePlusFormImageData(imageData);
+        ImagePlus image = ImageUtils.ImageDataToImagePlus(imageData);
 
         ImageProcessor imp = image.getProcessor();
 
@@ -42,11 +46,13 @@ public class PuzzleService {
                 ImageProcessor impCrop = imp.crop();
                 ImagePlus puzzleImage = new ImagePlus("puzzle", impCrop);
 
-                byte[] puzzlePieceByteImage = ImageUtils.getBytesOfImage(puzzleImage);
+                byte[] puzzlePieceByteImage = ImageUtils.ImagePlusToImageData(puzzleImage);
 
                 String randomFileName = UUID.randomUUID().toString();
 
-                PuzzlePiece puzzlePiece = new PuzzlePiece(randomFileName, Base64.getEncoder().encodeToString(puzzlePieceByteImage));
+                PuzzlePiece puzzlePiece = new PuzzlePiece(randomFileName, i, j, Base64.getEncoder().encodeToString(puzzlePieceByteImage));
+
+                puzzlePieceRepository.save(puzzlePiece);
 
                 puzzlePieces.add(puzzlePiece);
             }
