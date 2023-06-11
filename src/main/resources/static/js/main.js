@@ -10,7 +10,7 @@ document.getElementById('uploadForm').addEventListener('submit', function(e) {
     formData.append('numPiecesInColumn', numPiecesInColumn);
     formData.append('numPiecesInRow', numPiecesInRow);
 
-    fetch('/api/v1/puzzle/upload', {
+    fetch('/api/v1/puzzle/upload-picture', {
         method: 'POST',
         body: formData
     })

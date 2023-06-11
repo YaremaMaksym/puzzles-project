@@ -26,7 +26,7 @@ public class PuzzleController {
         return "main";
     }
 
-    @PostMapping("/upload")
+    @PostMapping("/upload-picture")
     public ResponseEntity<String> uploadImage(@RequestParam("image") MultipartFile file, HttpSession session, Integer numPiecesInColumn, Integer numPiecesInRow) {
         try {
             byte[] imageData = file.getBytes();
@@ -46,7 +46,7 @@ public class PuzzleController {
         }
     }
 
-    @GetMapping("/download")
+    @GetMapping("/download-archive")
     public ResponseEntity<byte[]> downloadPuzzlePieces(HttpSession session){
 
         PuzzleInfo puzzleInfo = (PuzzleInfo) session.getAttribute("puzzleInfo");
@@ -72,7 +72,7 @@ public class PuzzleController {
         return "desk";
     }
 
-    @GetMapping("/getPuzzleInfo")
+    @GetMapping("/puzzle-info")
     @ResponseBody
     public PuzzleInfo getPuzzlePieces(HttpSession session) {
         return (PuzzleInfo) session.getAttribute("puzzleInfo");

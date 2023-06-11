@@ -5,7 +5,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const puzzleContainer = document.getElementById('puzzle-container');
     const puzzleDesk = document.getElementById('puzzle-desk');
 
-    fetch('/api/v1/puzzle/getPuzzleInfo')
+    fetch('/api/v1/puzzle/puzzle-info')
         .then(response => response.json())
         .then(puzzleInfo => {
 
