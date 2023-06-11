@@ -5,6 +5,7 @@ import com.maks.puzzlesproject.models.PuzzlePiece;
 import com.maks.puzzlesproject.services.PuzzleService;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/api/v1/puzzle")
 @AllArgsConstructor
+@Slf4j
 public class PuzzleController {
 
     private final PuzzleService puzzleService;
@@ -76,6 +78,43 @@ public class PuzzleController {
     @ResponseBody
     public PuzzleInfo getPuzzlePieces(HttpSession session) {
         return (PuzzleInfo) session.getAttribute("puzzleInfo");
+    }
+
+    @PostMapping("upload-archive")
+    public ResponseEntity<String> uploadArchive(@RequestParam("archive") MultipartFile file, HttpSession session) {
+        try {
+            byte[] archive = file.getBytes();
+
+            List<PuzzlePiece> puzzlePieces = puzzleService.extractPuzzlePiecesFromArchive(archive);
+
+            session.setAttribute("puzzlePiecesFromArchive", puzzlePieces);
+
+            log.info("Extracted image with id 10 {}", puzzlePieces.get(10).toString());
+
+            return ResponseEntity.ok("Success");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            session.setAttribute("puzzlePiecesFromArchive", "An error.html occurred during image upload.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("error");
+        }
+    }
+
+    @GetMapping("/solve-puzzle")
+    public ResponseEntity<String> solvePuzzle(HttpSession session) throws IOException {
+
+        List<PuzzlePiece> puzzlePieces = (List<PuzzlePiece>) session.getAttribute("puzzlePiecesFromArchive");
+
+        log.info("received from httpSession image with id 10 {}", puzzlePieces.get(10).toString());
+
+        String solvedPuzzle = puzzleService.solvePuzzle(puzzlePieces);
+
+        return ResponseEntity.ok(solvedPuzzle);
+    }
+
+    @GetMapping("/picture")
+    public String getPicturePage(){
+        return "picture";
     }
 }
 

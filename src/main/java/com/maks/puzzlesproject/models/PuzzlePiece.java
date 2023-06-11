@@ -5,12 +5,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "piece_position")
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class PuzzlePiece {

@@ -31,6 +31,39 @@ document.getElementById('uploadForm').addEventListener('submit', function(e) {
         });
 });
 
+document.getElementById('archiveForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var archiveInput = document.getElementById('archiveInput');
+
+    var archiveFormData = new FormData();
+    archiveFormData.append('archive', archiveInput.files[0]);
+
+    fetch('/api/v1/puzzle/upload-archive', {
+        method: 'POST',
+        body: archiveFormData
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.text();
+            } else {
+                throw new Error('Error: ' + response.status);
+            }
+        })
+        .then(data => {
+            console.log('Archive upload was successful:', data);
+            document.getElementById('successArchiveUploadMessage').style.display = 'block';
+            document.getElementById('solvedPuzzleButton').style.display = 'block';
+        })
+        .catch(error => {
+            console.error('An error occurred during the archive upload:', error);
+        });
+});
+
 function startPuzzle() {
     window.location.href = "puzzle/desk";
+}
+
+function picturePage() {
+    window.location.href = "puzzle/picture";
 }

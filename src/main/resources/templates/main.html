@@ -31,6 +31,27 @@
     <button onclick="startPuzzle()">Start Puzzle</button>
 </div>
 
+
+
+
+<div id="uploadArchive">
+    <h2>Upload archive with puzzles:</h2>
+    <form id="archiveForm" enctype="multipart/form-data">
+        <input type="file" id="archiveInput" name="archive" accept=".zip" required>
+        <input type="submit" value="Upload Archive">
+    </form>
+</div>
+
+
+<div id="successArchiveUploadMessage" style="display: none;">Archive uploaded successfully! Now you can see solved puzzle</div>
+
+<div id="solvedPuzzleButton" style="display: none;">
+
+    <h2>See solved puzzle:</h2>
+    <button onclick="picturePage()">See solved puzzle</button>
+</div>
+
+
 <script src="/js/main.js"></script>
 </body>
 </html>
