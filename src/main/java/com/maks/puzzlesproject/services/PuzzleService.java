@@ -26,7 +26,7 @@ public class PuzzleService {
     public List<PuzzlePiece> splitImageIntoPieces(byte[] imageData, Integer numPiecesInColumn, Integer numPiecesInRow) throws IOException {
         List<PuzzlePiece> puzzlePieces = new ArrayList<>();
 
-        ImagePlus image = ImageUtils.ImageDataToImagePlus(imageData);
+        ImagePlus image = ImageUtils.byteArrayToImagePlus(imageData);
 
         ImageProcessor imp = image.getProcessor();
 
@@ -46,7 +46,7 @@ public class PuzzleService {
                 ImageProcessor impCrop = imp.crop();
                 ImagePlus puzzleImage = new ImagePlus("puzzle", impCrop);
 
-                byte[] puzzlePieceByteImage = ImageUtils.ImagePlusToImageData(puzzleImage);
+                byte[] puzzlePieceByteImage = ImageUtils.imagePlusToByteArray(puzzleImage);
 
                 String randomFileName = UUID.randomUUID().toString();
 
