@@ -61,6 +61,24 @@ public class PuzzleService {
         return puzzlePieces;
     }
 
+    public boolean checkPuzzlePlacement(List<PuzzlePiece> puzzlePiecesFromUser) throws IOException{
+        for (PuzzlePiece userPiece : puzzlePiecesFromUser) {
+
+            // Retrieve a puzzle piece from the database by its name
+            PuzzlePiece dbPiece = puzzlePieceRepository.findByName(userPiece.getName())
+                    .orElseThrow(() -> new IllegalStateException("Puzzle piece not found"));
+
+            // Check if the user has placed the puzzle correctly
+            if (!Objects.equals(userPiece.getXPositionInMatrix(), dbPiece.getXPositionInMatrix())
+                    || !Objects.equals(userPiece.getYPositionInMatrix(), dbPiece.getYPositionInMatrix())) {
+
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public byte[] createPuzzleArchive(List<PuzzlePiece> puzzlePieces) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
