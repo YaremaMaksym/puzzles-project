@@ -23,7 +23,7 @@ document.getElementById('uploadForm').addEventListener('submit', function(e) {
         })
         .then(data => {
             console.log('POST request was successful:', data);
-            document.getElementById('successMessage').style.display = 'block';
+            document.getElementById('successImageUploadMessage').style.display = 'block';
             document.getElementById('downloadAndStartButtons').style.display = 'block';
         })
         .catch(error => {
