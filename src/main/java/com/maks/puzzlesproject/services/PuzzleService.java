@@ -1,6 +1,7 @@
 package com.maks.puzzlesproject.services;
 
 import com.maks.puzzlesproject.models.PuzzlePiece;
+import com.maks.puzzlesproject.models.RequestPuzzlePiece;
 import com.maks.puzzlesproject.repository.PuzzlePieceRepository;
 import com.maks.puzzlesproject.utils.ImageUtils;
 import com.maks.puzzlesproject.utils.ZipUtils;
