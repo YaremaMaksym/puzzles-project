@@ -35,6 +35,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                     pieceImage.addEventListener('load', () => {
                         pieceElement.style.width = pieceImage.naturalWidth + 'px';
                         pieceElement.style.height = pieceImage.naturalHeight + 'px';
+                        pieceElement.id = puzzlePiece.name;
                     });
 
                     pieceElement.appendChild(pieceImage);
