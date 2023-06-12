@@ -193,3 +193,65 @@ function attachToGrid(element, rotationAngle) {
         element.dataset.cellId = closestCell.id;
     }
 }
+
+function checkCorrectness() {
+    const puzzleContainer = document.getElementById('puzzle-container');
+    const puzzlePieces = puzzleContainer.getElementsByClassName('puzzle-piece');
+    const placementChecking = document.getElementById('result-of-checking');
+
+    if (Array.from(puzzlePieces).some(piece => !piece.dataset.cellId)) {
+        placementChecking.textContent = 'Not all puzzle pieces are attached to the grid!';
+        placementChecking.style.display = 'block';
+        return;
+    }
+
+    const puzzleData = [];
+
+    for (const piece of puzzlePieces) {
+        const name = piece.id;
+        const xPositionInMatrix = parseInt(piece.dataset.cellId.split('-')[2]);
+        const yPositionInMatrix = parseInt(piece.dataset.cellId.split('-')[3]);
+        const rotationAngle = parseInt(piece.style.transform.split('rotate(')[1]) || 0;
+
+        if (rotationAngle !== 0) {
+            placementChecking.textContent = 'Wrong placement!';
+            placementChecking.style.display = 'block';
+            return;
+        }
+
+        const puzzlePiece = {
+            name,
+            xPositionInMatrix,
+            yPositionInMatrix
+        };
+
+        puzzleData.push(puzzlePiece);
+    }
+
+    fetch('/api/v1/puzzle/check-puzzle-placement', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(puzzleData)
+    })
+        .then(response => response.json())
+        .then(result => {
+            handleCheckResult(result);
+        })
+        .catch(error => {
+            console.error('An error occurred during the POST request:', error);
+        });
+}
+
+function handleCheckResult(result) {
+    const placementChecking = document.getElementById('result-of-checking');
+
+    if (result) {
+        placementChecking.textContent = 'Congratulations, you have placed the puzzles correctly!';
+    } else {
+        placementChecking.textContent = 'Wrong placement!';
+    }
+
+    placementChecking.style.display = 'block';
+}
