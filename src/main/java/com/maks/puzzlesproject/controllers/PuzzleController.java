@@ -2,10 +2,12 @@ package com.maks.puzzlesproject.controllers;
 
 import com.maks.puzzlesproject.models.PuzzleInfo;
 import com.maks.puzzlesproject.models.PuzzlePiece;
+import com.maks.puzzlesproject.models.RequestPuzzlePiece;
 import com.maks.puzzlesproject.services.PuzzleService;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -78,6 +80,13 @@ public class PuzzleController {
     @ResponseBody
     public PuzzleInfo getPuzzlePieces(HttpSession session) {
         return (PuzzleInfo) session.getAttribute("puzzleInfo");
+    }
+
+    @PostMapping("/check-puzzle-placement")
+    public ResponseEntity<Boolean> checkPuzzlePlacement(@RequestBody List<RequestPuzzlePiece> userPieces) throws IOException {
+        log.info("Received piece with id 2 {}", userPieces.get(2).toString());
+        boolean isCorrect = puzzleService.checkPuzzlePlacement(userPieces);
+        return ResponseEntity.ok(isCorrect);
     }
 
     @PostMapping("upload-archive")
