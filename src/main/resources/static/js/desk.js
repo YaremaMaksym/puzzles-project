@@ -138,11 +138,13 @@ function addGrid(puzzleInfo) {
     puzzleContainer.style.gridTemplateRows = `repeat(${numInColumn}, 1fr)`;
     puzzleContainer.style.gridTemplateColumns = `repeat(${numInRow}, 1fr)`;
 
-    for (let i = 0; i < puzzleInfo.puzzlePieces.length; i++) {
-        const gridCell = document.createElement('div');
-        gridCell.id = `grid-cell-${i}`;
-        gridCell.className = 'grid-cell';
-        puzzleContainer.appendChild(gridCell);
+    for (let y = 0; y < numInColumn; y++) {
+        for (let x = 0; x < numInRow; x++) {
+            const gridCell = document.createElement('div');
+            gridCell.id = `grid-cell-${x}-${y}`;
+            gridCell.className = 'grid-cell';
+            puzzleContainer.appendChild(gridCell);
+        }
     }
 }
 
