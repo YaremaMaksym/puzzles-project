@@ -14,14 +14,26 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
             image.addEventListener('load', () => {
 
-                const puzzleContainerWidth = image.naturalWidth;
-                const puzzleContainerHeight = image.naturalHeight;
+                // Get viewport size
+                const viewportWidth = window.innerWidth;  // 100% of viewport width
+                const viewportHeight = window.innerHeight * 0.9;  // 90% of viewport height
 
+                // Assign puzzle-desk size based on viewport
+                puzzleDesk.style.width = viewportWidth + 'px';
+                puzzleDesk.style.height = viewportHeight + 'px';
+
+                // Calculate puzzle-container size to fit into viewport
+                const ratio = Math.min(viewportWidth / image.naturalWidth, viewportHeight / image.naturalHeight) * 0.80;
+
+                const puzzleContainerWidth = image.naturalWidth * ratio;
+                const puzzleContainerHeight = image.naturalHeight * ratio;
+
+                // Center puzzle-container within puzzle-desk
                 puzzleContainer.style.width = puzzleContainerWidth + 'px' ;
                 puzzleContainer.style.height = puzzleContainerHeight + 'px';
-
-                puzzleDesk.style.width = puzzleContainerWidth * 3 + 'px';
-                puzzleDesk.style.height = puzzleContainerHeight + 'px';
+                puzzleContainer.style.top = '50%';
+                puzzleContainer.style.left = '50%';
+                puzzleContainer.style.transform = 'translate(-50%, -50%)';
 
                 addGrid(puzzleInfo);
 
@@ -33,10 +45,16 @@ window.addEventListener('DOMContentLoaded', (event) => {
                     pieceImage.src = 'data:image/jpeg;base64,' + puzzlePiece.imageBase64Data;
 
                     pieceImage.addEventListener('load', () => {
-                        pieceElement.style.width = pieceImage.naturalWidth + 'px';
-                        pieceElement.style.height = pieceImage.naturalHeight + 'px';
+                        // Resize puzzle pieces to fit the new puzzle-container size
+                        pieceElement.style.width = pieceImage.naturalWidth * ratio + 'px';
+                        pieceElement.style.height = pieceImage.naturalHeight * ratio + 'px';
                         pieceElement.id = puzzlePiece.name;
+
+                        // Also resize the image inside the puzzle piece
+                        pieceImage.style.width = '100%';
+                        pieceImage.style.height = '100%';
                     });
+
 
                     pieceElement.appendChild(pieceImage);
                     puzzleContainer.appendChild(pieceElement);
@@ -46,6 +64,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
             });
         })
 });
+
+
 
 function addDragHandlers(element) {
     let isDragging = false;
@@ -105,9 +125,9 @@ function addDragHandlers(element) {
             const newY = event.clientY - containerRect.top - offsetY;
 
             const minX = -containerRect.left;
-            const minY = 0;
-            const maxX = puzzleDesk.offsetWidth - puzzlePieceRect.width;
-            const maxY = puzzleDesk.offsetHeight - puzzlePieceRect.height;
+            const minY = -containerRect.top * 0.5;
+            const maxX = puzzleDesk.offsetWidth - puzzlePieceRect.width * 2;
+            const maxY = puzzleDesk.offsetHeight - puzzlePieceRect.height * 1.5;
 
             const clampedX = Math.min(Math.max(newX, minX), maxX);
             const clampedY = Math.min(Math.max(newY, minY), maxY);
@@ -175,7 +195,7 @@ function attachToGrid(element, rotationAngle) {
         }
     }
 
-    if (closestCell && minDistance < 300) {
+    if (closestCell && minDistance < 100) {
 
         // Check if puzzle-cell already occupied
         const existingPiece = Array.from(puzzleContainer.getElementsByClassName('puzzle-piece')).find(piece => piece.dataset.cellId === closestCell.id);

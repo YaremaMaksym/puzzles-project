@@ -1,14 +1,12 @@
 #puzzle-desk {
     position: relative;
     background-color: #f3f3f3;
+    outline: 2px solid black;
 }
 
 #puzzle-container {
-    position: relative;
+    position: absolute;
     background-color: #fff4e8;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     outline: 2px solid black;
 }
 
@@ -35,4 +33,10 @@
 
 .puzzle-piece.active {
     outline: 4px solid red;
+}
+
+
+h1 {
+    color: #333;
+    text-align: center;
 }
