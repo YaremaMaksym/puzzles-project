@@ -1,0 +1,22 @@
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#picture-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 50px); /* Застосовуємо висоту екрану мінус 50 пікселів */
+    margin-bottom: 50px; /* Встановлюємо відступ внизу контейнера */
+}
+
+#picture-container img {
+    max-width: 100%;
+    max-height: 100%;
+}
