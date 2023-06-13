@@ -6,8 +6,6 @@ import com.maks.puzzlesproject.models.RequestPuzzlePiece;
 import com.maks.puzzlesproject.services.PuzzleService;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +18,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/api/v1/puzzle")
 @AllArgsConstructor
-@Slf4j
 public class PuzzleController {
 
     private final PuzzleService puzzleService;
@@ -84,7 +81,6 @@ public class PuzzleController {
 
     @PostMapping("/check-puzzle-placement")
     public ResponseEntity<Boolean> checkPuzzlePlacement(@RequestBody List<RequestPuzzlePiece> userPieces) throws IOException {
-        log.info("Received piece with id 2 {}", userPieces.get(2).toString());
         boolean isCorrect = puzzleService.checkPuzzlePlacement(userPieces);
         return ResponseEntity.ok(isCorrect);
     }
@@ -97,8 +93,6 @@ public class PuzzleController {
             List<PuzzlePiece> puzzlePieces = puzzleService.extractPuzzlePiecesFromArchive(archive);
 
             session.setAttribute("puzzlePiecesFromArchive", puzzlePieces);
-
-            log.info("Extracted image with id 10 {}", puzzlePieces.get(10).toString());
 
             return ResponseEntity.ok("Success");
 
@@ -113,8 +107,6 @@ public class PuzzleController {
     public ResponseEntity<String> solvePuzzle(HttpSession session) throws IOException {
 
         List<PuzzlePiece> puzzlePieces = (List<PuzzlePiece>) session.getAttribute("puzzlePiecesFromArchive");
-
-        log.info("received from httpSession image with id 10 {}", puzzlePieces.get(10).toString());
 
         String solvedPuzzle = puzzleService.solvePuzzle(puzzlePieces);
 
