@@ -36,7 +36,7 @@ To run the project locally, follow these steps:
 1. Clone the repository:
 
    ```
-   git clone https://github.com/your-username/puzzles-project.git
+   git clone https://github.com/YaremaMaksym/puzzles-project.git
    ```
 
 2. Open the project in your preferred IDE.
