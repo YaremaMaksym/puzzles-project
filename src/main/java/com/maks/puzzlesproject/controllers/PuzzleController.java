@@ -16,7 +16,7 @@ import java.util.Base64;
 import java.util.List;
 
 @Controller
-@RequestMapping("/api/v1/puzzle")
+@RequestMapping("/puzzle_project")
 @AllArgsConstructor
 public class PuzzleController {
 

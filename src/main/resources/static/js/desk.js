@@ -5,7 +5,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const puzzleContainer = document.getElementById('puzzle-container');
     const puzzleDesk = document.getElementById('puzzle-desk');
 
-    fetch('/api/v1/puzzle/puzzle-info')
+    fetch('/puzzle_project/puzzle-info')
         .then(response => response.json())
         .then(puzzleInfo => {
 
@@ -248,7 +248,7 @@ function checkCorrectness() {
         puzzleData.push(puzzlePiece);
     }
 
-    fetch('/api/v1/puzzle/check-puzzle-placement', {
+    fetch('/puzzle_project/check-puzzle-placement', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

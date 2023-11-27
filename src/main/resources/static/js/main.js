@@ -10,7 +10,7 @@ document.getElementById('uploadForm').addEventListener('submit', function(e) {
     formData.append('numPiecesInColumn', numPiecesInColumn);
     formData.append('numPiecesInRow', numPiecesInRow);
 
-    fetch('/api/v1/puzzle/upload-picture', {
+    fetch('/puzzle_project/upload-picture', {
         method: 'POST',
         body: formData
     })
@@ -39,7 +39,7 @@ document.getElementById('archiveForm').addEventListener('submit', function(e) {
     var archiveFormData = new FormData();
     archiveFormData.append('archive', archiveInput.files[0]);
 
-    fetch('/api/v1/puzzle/upload-archive', {
+    fetch('/puzzle_project/upload-archive', {
         method: 'POST',
         body: archiveFormData
     })
@@ -61,9 +61,9 @@ document.getElementById('archiveForm').addEventListener('submit', function(e) {
 });
 
 function startPuzzle() {
-    window.location.href = "puzzle/desk";
+    window.location.href = "puzzle_project/desk";
 }
 
 function picturePage() {
-    window.location.href = "puzzle/picture";
+    window.location.href = "puzzle_project/picture";
 }
