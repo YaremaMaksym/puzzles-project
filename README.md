@@ -1,6 +1,7 @@
 # Puzzles Project
 
-This project implements a web application for creating, managing and solving puzzles. It allows users to upload puzzle images, split them into pieces, manipulate the pieces, and solve the puzzle.
+This project implements a web application for creating, managing and solving puzzles. \
+It allows users to upload puzzle images, split them into pieces, manipulate the pieces, and solve the puzzle.
 
 You can try out this project here(the maximum size of the input image should not exceed 1 megabyte)
 https://puzzles-project-production.up.railway.app/api/v1/puzzle
