@@ -1,10 +1,8 @@
 # Puzzles Project
 
 This project implements a web application for creating, managing and solving puzzles. \
-It allows users to upload puzzle images, split them into pieces, manipulate the pieces, and solve the puzzle.
-
-You can try out this project here(the maximum size of the input image should not exceed 1 megabyte)
-https://puzzles-project-production.up.railway.app/api/v1/puzzle
+It allows users to upload puzzle images, split them into pieces, manipulate the pieces, and solve the puzzle. \
+(the maximum size of the input image should not exceed 1 megabyte)
 
 ## Table of Contents
 
@@ -42,28 +40,20 @@ To run the project locally, follow these steps:
 
 2. Open the project in your preferred IDE.
 
-3. Build the project using Maven:
+3. Set up the database:
 
-    ```
-    mvn clean install
-    ```
-4. Set up the database:
+   * Install and configure PostgreSQL on your system.
+   * Create a new database named puzzle_project.
+   * Update the `application.properties` file (see [Configuration](#configuration)) with your PostgreSQL credentials.
 
-* Install and configure PostgreSQL on your system.
-* Create a new database named puzzle_project.
-* Update the `application.properties` file (see [Configuration](#configuration)) with your PostgreSQL credentials.
+4. Run the application
 
-5. Run the application:
-
-    ```
-    mvn spring-boot:run
-    ```
-
+The application should now be running on [http://localhost:8080/puzzle_project](http://localhost:8080/puzzle_project).
 
 ## Configuration
 The project uses the `application.properties` file to configure the database connection. Here is an example of the file contents:
 
-
+   ```
     server.port=8080
 
     spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.PostgreSQLDialect
@@ -73,6 +63,7 @@ The project uses the `application.properties` file to configure the database con
     spring.datasource.url=jdbc:postgresql://localhost:5432/puzzle_project
     spring.datasource.username=${PGUSERNAME}
     spring.datasource.password=${PGPASSWORD}
+   ```
 
 Make sure to replace `${PGUSERNAME}` and `${PGPASSWORD}` with your actual PostgreSQL database credentials.
 
