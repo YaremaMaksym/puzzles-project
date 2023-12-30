@@ -26,7 +26,7 @@ The project uses the following technologies and frameworks:
 - Lombok (for reducing boilerplate code and enhancing Java classes)
 - HTML/CSS/JavaScript (for front-end)
 - Maven (for dependency management)
-- Git (for version control)
+- Git (for version control) 
 
 ## Installation
 
