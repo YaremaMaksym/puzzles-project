@@ -59,13 +59,12 @@ To run the project locally, follow these steps:
     mvn spring-boot:run
     ```
 
-The application should now be running on [http://localhost:8090/puzzle_project](http://localhost:8090/puzzle_project).
 
 ## Configuration
 The project uses the `application.properties` file to configure the database connection. Here is an example of the file contents:
 
 
-    server.port=8090
+    server.port=8080
 
     spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.PostgreSQLDialect
     spring.datasource.driverClassName=org.postgresql.Driver
@@ -78,7 +77,7 @@ The project uses the `application.properties` file to configure the database con
 Make sure to replace `${PGUSERNAME}` and `${PGPASSWORD}` with your actual PostgreSQL database credentials.
 
 ## Usage
-1. Access the application by opening the following URL in your web browser after you runned application : [http://localhost:8090/puzzle_project](http://localhost:8090/puzzle_project).
+1. Access the application by opening the following URL in your web browser after you runned application : [http://localhost:8080/puzzle_project](http://localhost:8080/puzzle_project).
 
 2. Upload a puzzle picture by clicking on the "Upload Picture" button and selecting an image file from your local machine. Specify the number of puzzle pieces in each column and row.
 
