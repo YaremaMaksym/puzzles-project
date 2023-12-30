@@ -28,7 +28,10 @@ public class PuzzleController {
     }
 
     @PostMapping("/upload-picture")
-    public ResponseEntity<String> uploadImage(@RequestParam("image") MultipartFile file, HttpSession session, Integer numPiecesInColumn, Integer numPiecesInRow) {
+    public ResponseEntity<String> uploadImage(@RequestParam("image") MultipartFile file,
+                                              HttpSession session,
+                                              Integer numPiecesInColumn,
+                                              Integer numPiecesInRow) {
         try {
             byte[] imageData = file.getBytes();
 

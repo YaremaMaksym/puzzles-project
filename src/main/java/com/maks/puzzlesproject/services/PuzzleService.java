@@ -24,7 +24,9 @@ public class PuzzleService {
 
     private final PuzzlePieceRepository puzzlePieceRepository;
 
-    public List<PuzzlePiece> splitImageIntoPieces(byte[] imageData, Integer numPiecesInColumn, Integer numPiecesInRow) throws IOException {
+    public List<PuzzlePiece> splitImageIntoPieces(byte[] imageData,
+                                                  Integer numPiecesInColumn,
+                                                  Integer numPiecesInRow) throws IOException {
         List<PuzzlePiece> puzzlePieces = new ArrayList<>();
 
         ImagePlus image = ImageUtils.byteArrayToImagePlus(imageData);
