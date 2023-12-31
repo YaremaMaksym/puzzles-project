@@ -1,6 +1,6 @@
 # Puzzles Project
 
-This project implements a web application for creating, managing and solving puzzles. \
+This project implements a Java web app for creating, managing and solving puzzles. \
 It allows users to upload puzzle images, split them into pieces, manipulate the pieces, and solve the puzzle. \
 (the maximum size of the input image should not exceed 1 megabyte)
 
