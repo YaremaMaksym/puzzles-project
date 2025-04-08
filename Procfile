@@ -1,0 +1,1 @@
+web: java -Dfile.encoding=UTF-8 -jar target/puzzles-project-0.0.1-SNAPSHOT-spring-boot.jar
